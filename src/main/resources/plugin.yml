@@ -1,0 +1,5 @@
+name: ItemFrameToggle
+version: ${project.version}
+main: os.ItemFrameToggle
+api-version: 1.17
+author: OnwexryS, Divie

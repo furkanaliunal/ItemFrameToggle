@@ -1,0 +1,14 @@
+
+#ItemFrame Toggle
+
+#Hide item frame on shift right click
+#Once you make it invisible you can make it visible again with shift+rightclick
+#When item frame is invisible you can rotate item inside of it via shift+leftclick because right click will open containers backwards of it
+
+
+#here you can edit the message that sending to player when makes an itemframe invisible
+#blank message means don't send any message
+#messageOnHide: '' this is blank message
+#to go next line of the message use /
+#Character '/' is for next line you have to use // if you wan't to see / in the message
+messageOnHide: '&9&lYou have set an itemframe unvisible.. /&7You can rotate it &b(shift+leftclick) /&7and you can set it visible again &b(shift+rightclick)'

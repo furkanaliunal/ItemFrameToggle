@@ -22,15 +22,7 @@ Sneak and right click: set item frame visible
 Permissions:
 itemframetoggle.toggle - enabled by default.
 
-
-![1.gif](src/images/1.gif)
----
-
-![1.png](src/images/1.png)
----
-
-![2.png](src/images/2.png)
----
-
-![3.png](src/images/3.png)
----
+<div style="text-align:center"><img src="src/images/1.gif" /></div>
+<div style="text-align:center"><img src="src/images/1.png" /></div>
+<div style="text-align:center"><img src="src/images/2.png" /></div>
+<div style="text-align:center"><img src="src/images/3.png" /></div>

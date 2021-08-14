@@ -3,6 +3,7 @@ package os;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import os.versions.IInteractListener;
 
 import java.util.ArrayList;
 
@@ -11,7 +12,16 @@ public final class ItemFrameToggle extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getServer().getPluginManager().registerEvents(new InteractListener(this), this);
+        int version = Integer.parseInt((getServer().getBukkitVersion().split("-")[0]).replace(".", ""));
+        IInteractListener listener = null;
+        if (version >= 1170){
+            listener = new os.versions.v1_17.InteractListener(this);
+        }else if (version >= 1160){
+            listener = new os.versions.v1_16.InteractListener(this);
+        }else{
+            getServer().getLogger().warning("ItemFrameToggle doesn't support current version ("+version+")");
+        }
+        getServer().getPluginManager().registerEvents(listener, this);
         getConfig().options().copyDefaults();
         loadConfig();
     }

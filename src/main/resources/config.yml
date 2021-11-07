@@ -12,3 +12,47 @@
 #to go next line of the message use /
 #Character '/' is for next line you have to use // if you wan't to see / in the message
 messageOnHide: '&9&lYou have set an itemframe unvisible.. /&7You can rotate it &b(shift+leftclick) /&7and you can set it visible again &b(shift+rightclick)'
+
+
+PermissionsEnabled: true
+
+
+TriggerBlocks:
+  ENDER_CHEST:
+    enabled: true
+    permission: 'ift.enderchest'
+  BARREL:
+    enabled: true
+    permission: 'ift.barrel'
+  BLAST_FURNACE:
+    enabled: true
+    permission: 'ift.blastfurnace'
+  BREWING_STAND:
+    enabled: true
+    permission: 'ift.brewingstand'
+  CHEST:
+    enabled: true
+    permission: 'ift.chest'
+  DISPENSER:
+    enabled: true
+    permission: 'ift.dispenser'
+  DROPPER:
+    enabled: true
+    permission: 'ift.dropper'
+  FURNACE:
+    enabled: true
+    permission: 'ift.furnace'
+  HOPPER:
+    enabled: true
+    permission: 'ift.hopper'
+  LECTERN:
+    enabled: true
+    permission: 'ift.lectern'
+  SMOKER:
+    enabled: true
+    permission: 'ift.smoker'
+
+  #Includes Colored Shulker_Boxes
+  SHULKER_BOX:
+    enabled: true
+    permission: 'ift.shulker'

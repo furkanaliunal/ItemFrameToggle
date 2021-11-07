@@ -4,30 +4,25 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.block.Container;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.ItemFrame;
-import org.bukkit.entity.Player;
+import org.bukkit.block.ShulkerBox;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.*;
 import os.ItemFrameToggle;
-import os.versions.IInteractListener;
+import os.Triggers.ITrigger;
+import os.Triggers.TriggerManagers.BlockTriggerManager;
+import os.versions.BaseInteractListener;
 
-public class InteractListener implements IInteractListener {
+public class InteractListener extends BaseInteractListener {
 
-    private final ItemFrameToggle plugin;
-    public InteractListener(ItemFrameToggle plugin){
-        this.plugin = plugin;
+    public InteractListener(ItemFrameToggle plugin, BlockTriggerManager trigger){
+        super(plugin, trigger);
     }
-
-
 
     @EventHandler
     public void hideItemFrameWhileSneaking(PlayerInteractAtEntityEvent e) {
@@ -42,7 +37,7 @@ public class InteractListener implements IInteractListener {
         if (!(p.isSneaking())){
             return;
         }
-        if (!(p.hasPermission("itemframetoggle.toggle"))){
+        if (plugin.permissionBased && !(p.hasPermission("itemframetoggle.toggle"))){
             return;
         }
         ItemFrame itemFrame = (ItemFrame)clicked;
@@ -57,13 +52,14 @@ public class InteractListener implements IInteractListener {
 
     @EventHandler
     public void openContainerWhenFrameInvisible(PlayerInteractEntityEvent e) {
+        Player p = e.getPlayer();
         if (e.isCancelled()){
             return;
         }
         if (!(e.getHand() == (EquipmentSlot.HAND))){
             return;
         }
-        if (e.getPlayer().isSneaking()){
+        if (p.isSneaking()){
             return;
         }
         if (!isItemFrame(e.getRightClicked().getType())) {
@@ -72,20 +68,41 @@ public class InteractListener implements IInteractListener {
         if (((ItemFrame)e.getRightClicked()).isVisible()){
             return;
         }
-        if (!(e.getPlayer().hasPermission("itemframetoggle.toggle"))){
+        if (plugin.permissionBased && !(p.hasPermission("itemframetoggle.toggle"))){
             return;
         }
         Block block = e.getRightClicked().getLocation().getBlock().getRelative(((ItemFrame)e.getRightClicked()).getAttachedFace());
         if (block == null){
             return;
         }
-        if (block.getState() instanceof Container) {
-            Container container = (Container)block.getState();
-            if (openContainer(e.getPlayer(), container.getBlock())){
-                e.getPlayer().openInventory(container.getInventory());
+        Material blockType = block.getType();
+        if (block.getState() instanceof ShulkerBox){
+            blockType = Material.SHULKER_BOX;
+        }
+        ITrigger t = trigger.getTrigger(blockType);
+        if (t != null) {
+            if (openContainer(p, block)){
+                Inventory i = getInventory(p, block);
+                if (hasPermission(p, t.getPermission())){
+                    if (i != null){
+                        p.openInventory(i);
+                    }
+                }
+
             }
+
             e.setCancelled(true);
         }
+    }
+
+    public Inventory getInventory(Player p, Block block){
+        if (block.getType().equals(Material.ENDER_CHEST)){
+            return p.getEnderChest();
+        }
+        if (block.getState() instanceof BlockInventoryHolder){
+            return ((BlockInventoryHolder) block.getState()).getInventory();
+        }
+        return null;
     }
 
     @EventHandler
@@ -103,7 +120,7 @@ public class InteractListener implements IInteractListener {
         Player player = (Player)e.getDamager();
 
 
-        if (!(player.hasPermission("itemframetoggle.toggle"))){
+        if (plugin.permissionBased && !(player.hasPermission("itemframetoggle.toggle"))){
             return;
         }
 

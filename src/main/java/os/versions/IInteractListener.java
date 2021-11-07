@@ -13,6 +13,7 @@ public interface IInteractListener extends Listener {
     public void hideItemFrameWhileSneaking(PlayerInteractAtEntityEvent e);
     public void openContainerWhenFrameInvisible(PlayerInteractEntityEvent e);
     public void rotateFrameItemWhileSneaking(EntityDamageByEntityEvent e);
+
     public boolean openContainer(Player player, Block block);
     public void rotateItemFrame(ItemFrame itemFrame);
     boolean isItemFrame(EntityType item);

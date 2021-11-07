@@ -18,8 +18,12 @@ public final class ItemFrameToggle extends JavaPlugin {
             listener = new os.versions.v1_17.InteractListener(this);
         }else if (version >= 1160){
             listener = new os.versions.v1_16.InteractListener(this);
+        }else if (version >= 1130){
+            listener = new os.versions.v1_13.InteractListener(this);
         }else{
             getServer().getLogger().warning("ItemFrameToggle doesn't support current version ("+version+")");
+            getServer().getLogger().warning("ItemFrameToggle disabling...");
+            getServer().getPluginManager().disablePlugin(this);
         }
         getServer().getPluginManager().registerEvents(listener, this);
         getConfig().options().copyDefaults();

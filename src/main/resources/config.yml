@@ -20,40 +20,40 @@ PermissionsEnabled: false
 
 TriggerBlocks:
   ENDER_CHEST:
-    enabled: true
+    enabled: false
     permission: 'ift.enderchest'
   BARREL:
-    enabled: true
+    enabled: false
     permission: 'ift.barrel'
   BLAST_FURNACE:
-    enabled: true
+    enabled: false
     permission: 'ift.blastfurnace'
   BREWING_STAND:
-    enabled: true
+    enabled: false
     permission: 'ift.brewingstand'
   CHEST:
-    enabled: true
+    enabled: false
     permission: 'ift.chest'
   DISPENSER:
-    enabled: true
+    enabled: false
     permission: 'ift.dispenser'
   DROPPER:
-    enabled: true
+    enabled: false
     permission: 'ift.dropper'
   FURNACE:
-    enabled: true
+    enabled: false
     permission: 'ift.furnace'
   HOPPER:
-    enabled: true
+    enabled: false
     permission: 'ift.hopper'
   LECTERN:
-    enabled: true
+    enabled: false
     permission: 'ift.lectern'
   SMOKER:
-    enabled: true
+    enabled: false
     permission: 'ift.smoker'
 
   #Includes Colored Shulker_Boxes
   SHULKER_BOX:
-    enabled: true
+    enabled: false
     permission: 'ift.shulker'

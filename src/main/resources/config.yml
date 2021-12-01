@@ -14,8 +14,9 @@
 messageOnHide: '&9&lYou have set an itemframe unvisible.. /&7You can rotate it &b(shift+leftclick) /&7and you can set it visible again &b(shift+rightclick)'
 
 
-PermissionsEnabled: true
-
+PermissionsEnabled: false
+#You can activate permission checks per event.
+#It is disabled default
 
 TriggerBlocks:
   ENDER_CHEST:

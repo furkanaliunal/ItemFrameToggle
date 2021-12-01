@@ -11,11 +11,14 @@ import java.util.ArrayList;
 public final class ItemFrameToggle extends JavaPlugin {
     public String messageOnHide = "";
     public BlockTriggerManager blockTriggerManager;
-    public Boolean permissionBased = true;
+    public Boolean permissionBased = false;
 
     @Override
     public void onEnable() {
         int version = Integer.parseInt((getServer().getBukkitVersion().split("-")[0]).replace(".", ""));
+        if (version == 118){
+            version = 1180;
+        }
         if (version < 1130){
             getServer().getLogger().warning("ItemFrameToggle doesn't support current version ("+version+")");
             getServer().getLogger().warning("ItemFrameToggle disabling...");
@@ -25,7 +28,10 @@ public final class ItemFrameToggle extends JavaPlugin {
         getConfig().options().copyDefaults();
         loadConfig();
         blockTriggerManager = new BlockTriggerManager(this);
-        if (version >= 1170){
+        if (version >= 1180){
+            listener = new os.versions.v1_18.InteractListener(this, blockTriggerManager);
+        }
+        else if (version >= 1170){
             listener = new os.versions.v1_17.InteractListener(this, blockTriggerManager);
         }else if (version >= 1160){
             listener = new os.versions.v1_16.InteractListener(this, blockTriggerManager);

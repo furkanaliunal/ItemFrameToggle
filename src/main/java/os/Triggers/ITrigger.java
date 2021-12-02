@@ -8,4 +8,6 @@ public interface ITrigger<T>{
     public Boolean hasPermission(Player p);
     public Boolean isEnabled();
     public T getType();
+    @Override
+    public String toString();
 }

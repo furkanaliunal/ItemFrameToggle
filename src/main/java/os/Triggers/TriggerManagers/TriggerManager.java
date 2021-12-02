@@ -22,9 +22,10 @@ public abstract class TriggerManager<T> implements ITriggerManager<T>{
         Set<String> elements = plugin.getConfig().getConfigurationSection(path).getKeys(false);
         for (String element : elements){
             Boolean isEnabled = plugin.getConfig().getBoolean(path + "." + element + "." + "enabled");
+            Boolean permissionBased = plugin.getConfig().getBoolean(path + "." + element + "." + "permissionBased");
             String permission = plugin.getConfig().getString(path + "." + element + "." + "permission");
             T type = getObjectFromName(element);
-            Trigger<T> newTrigger = new Trigger(type, permission, isEnabled);
+            Trigger<T> newTrigger = new Trigger(type, isEnabled, permissionBased, permission);
             this.triggers.add(newTrigger);
         }
     }

@@ -4,13 +4,15 @@ import org.bukkit.entity.Player;
 
 public class Trigger<T> implements ITrigger<T>{
     private T type;
-    private String permission;
     private Boolean enabled;
+    private String permission;
+    private Boolean permissionBased;
 
-    public Trigger(T type, String permission, Boolean enabled){
+    public Trigger(T type, Boolean enabled, Boolean permissionBased, String permission){
         this.type = type;
         this.permission = permission;
         this.enabled = enabled;
+        this.permissionBased = permissionBased;
     }
 
 
@@ -22,6 +24,9 @@ public class Trigger<T> implements ITrigger<T>{
 
     @Override
     public Boolean hasPermission(Player p) {
+        if (!permissionBased){
+            return true;
+        }
         return p.hasPermission(this.permission);
     }
 
@@ -33,5 +38,10 @@ public class Trigger<T> implements ITrigger<T>{
     @Override
     public T getType() {
         return this.type;
+    }
+
+    @Override
+    public String toString() {
+        return type.toString() + "| isEnabled:" + enabled + "| permission:" + permission + "| permissionBased:" + permissionBased;
     }
 }

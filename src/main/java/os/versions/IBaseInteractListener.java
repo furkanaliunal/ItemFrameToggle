@@ -17,5 +17,5 @@ public interface IBaseInteractListener extends Listener {
     public boolean openContainer(Player player, Block block);
     public void rotateItemFrame(ItemFrame itemFrame);
     boolean isItemFrame(EntityType item);
-    public boolean hasPermission(Player p, String permission);
+    //public boolean hasPermission(Player p, String permission);
 }

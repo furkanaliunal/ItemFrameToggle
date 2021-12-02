@@ -37,17 +37,20 @@ public class InteractListener extends BaseInteractListener {
         if (!(p.isSneaking())){
             return;
         }
-        if (plugin.permissionBased && !(p.hasPermission("itemframetoggle.toggle"))){
-            return;
+        if (plugin.permissionBased){
+            if (!(p.hasPermission("itemframetoggle.toggle"))){
+                return;
+            }
         }
         ItemFrame itemFrame = (ItemFrame)clicked;
         if (!(itemFrame.getItem().getType() == Material.AIR && p.getItemInHand().getType() == Material.AIR)){
             itemFrame.setRotation(itemFrame.getRotation().rotateCounterClockwise());
         }
-        if (itemFrame.isVisible()){
+        Boolean isVisible = itemFrame.isVisible();
+        if (isVisible){
             plugin.sendMessage(p, plugin.messageOnHide);
         }
-        itemFrame.setVisible(!(itemFrame).isVisible());
+        itemFrame.setVisible(!isVisible);
     }
 
     @EventHandler
@@ -68,31 +71,36 @@ public class InteractListener extends BaseInteractListener {
         if (((ItemFrame)e.getRightClicked()).isVisible()){
             return;
         }
-        if (plugin.permissionBased && !(p.hasPermission("itemframetoggle.toggle"))){
-            return;
-        }
         Block block = e.getRightClicked().getLocation().getBlock().getRelative(((ItemFrame)e.getRightClicked()).getAttachedFace());
         if (block == null){
             return;
         }
+
         Material blockType = block.getType();
         if (block.getState() instanceof ShulkerBox){
             blockType = Material.SHULKER_BOX;
         }
-        ITrigger t = trigger.getTrigger(blockType);
-        if (t != null) {
-            if (openContainer(p, block)){
-                Inventory i = getInventory(p, block);
-                if (hasPermission(p, t.getPermission())){
-                    if (i != null){
-                        p.openInventory(i);
-                    }
-                }
-
+        ITrigger trigger = this.trigger.getTrigger(blockType);
+        if (trigger == null){
+            return;
+        }
+        if (!openContainer(p, block)){
+            return;
+        }
+        Inventory i = getInventory(p, block);
+        if (i == null){
+            return;
+        }
+        if (plugin.permissionBased){
+            if (trigger.hasPermission(p) && p.hasPermission("itemframetoggle.toggle")){
+                p.openInventory(i);
+                e.setCancelled(true);
             }
-
+        }else{
+            p.openInventory(i);
             e.setCancelled(true);
         }
+
     }
 
     public Inventory getInventory(Player p, Block block){

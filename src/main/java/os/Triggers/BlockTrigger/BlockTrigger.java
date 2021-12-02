@@ -5,7 +5,7 @@ import os.Triggers.Trigger;
 
 public class BlockTrigger extends Trigger<Material> {
 
-    public BlockTrigger(Material type, String permission, Boolean enabled) {
-        super(type, permission, enabled);
+    public BlockTrigger(Material type, Boolean enabled, Boolean permissionBased, String permission) {
+        super(type, enabled, permissionBased, permission);
     }
 }

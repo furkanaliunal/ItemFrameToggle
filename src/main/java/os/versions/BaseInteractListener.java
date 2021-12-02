@@ -12,7 +12,7 @@ public abstract class BaseInteractListener implements IBaseInteractListener{
         this.trigger = trigger;
     }
 
-    public boolean hasPermission(Player p, String permission){
+    /*public boolean hasPermission(Player p, String permission){
         if(!plugin.permissionBased){
             return true;
         }
@@ -20,5 +20,5 @@ public abstract class BaseInteractListener implements IBaseInteractListener{
             return true;
         }
         return false;
-    }
+    }*/
 }

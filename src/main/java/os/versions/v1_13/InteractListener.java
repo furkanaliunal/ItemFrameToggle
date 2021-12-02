@@ -92,14 +92,16 @@ public class InteractListener extends BaseInteractListener {
             return;
         }
         if (plugin.permissionBased){
-            if (trigger.hasPermission(p) && p.hasPermission("itemframetoggle.toggle")){
-                p.openInventory(i);
-                e.setCancelled(true);
+            if (!(trigger.hasPermission(p) && p.hasPermission("itemframetoggle.toggle"))){
+                return;
             }
-        }else{
-            p.openInventory(i);
-            e.setCancelled(true);
         }
+
+
+
+        p.openInventory(i);
+        e.setCancelled(true);
+
 
     }
 

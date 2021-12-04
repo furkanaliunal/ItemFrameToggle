@@ -2,6 +2,7 @@ package os.versions.v1_13;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.ShulkerBox;
@@ -107,6 +108,7 @@ public class InteractListener extends BaseInteractListener {
 
     public Inventory getInventory(Player p, Block block){
         if (block.getType().equals(Material.ENDER_CHEST)){
+            p.playSound(p.getLocation(), Sound.BLOCK_ENDER_CHEST_OPEN, 1, 1);
             return p.getEnderChest();
         }
         if (block.getState() instanceof BlockInventoryHolder){

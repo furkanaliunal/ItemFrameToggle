@@ -38,7 +38,7 @@ public final class ItemFrameToggle extends JavaPlugin {
         }else if (version >= 1130){
             listener = new os.versions.v1_13.InteractListener(this, blockTriggerManager);
         }
-        this.permissionBased = getConfig().getBoolean("PermissionsEnabled");
+        this.permissionBased = getConfig().getBoolean("PermissionsEnabled", false);
         getServer().getPluginManager().registerEvents(listener, this);
     }
 

@@ -7,6 +7,10 @@ import os.Triggers.TriggerManagers.BlockTriggerManager;
 import os.versions.IBaseInteractListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public final class ItemFrameToggle extends JavaPlugin {
     public String messageOnHide = "";
@@ -15,12 +19,9 @@ public final class ItemFrameToggle extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        int version = Integer.parseInt((getServer().getBukkitVersion().split("-")[0]).replace(".", ""));
-        if (version == 118){
-            version = 1180;
-        }
-        if (version < 1130){
-            getServer().getLogger().warning("ItemFrameToggle doesn't support current version ("+version+")");
+        Version currentVersion = new Version(getServer().getBukkitVersion().split("-")[0]);
+        if (currentVersion.compareTo(new Version("1.13")) < 0){
+            getServer().getLogger().warning("ItemFrameToggle doesn't support current version ("+currentVersion+")");
             getServer().getLogger().warning("ItemFrameToggle disabling...");
             getServer().getPluginManager().disablePlugin(this);
         }
@@ -28,22 +29,23 @@ public final class ItemFrameToggle extends JavaPlugin {
         getConfig().options().copyDefaults();
         loadConfig();
         blockTriggerManager = new BlockTriggerManager(this);
-        if (version >= 1180){
+        if (currentVersion.compareTo(new Version("1.18")) >= 0){
             listener = new os.versions.v1_18.InteractListener(this, blockTriggerManager);
-        }
-        else if (version >= 1170){
+        }else if (currentVersion.compareTo(new Version("1.17")) >= 0){
             listener = new os.versions.v1_17.InteractListener(this, blockTriggerManager);
-        }else if (version >= 1160){
+        }else if (currentVersion.compareTo(new Version("1.16")) >= 0){
             listener = new os.versions.v1_16.InteractListener(this, blockTriggerManager);
-        }else if (version >= 1130){
+        }else if (currentVersion.compareTo(new Version("1.13")) >= 0){
             listener = new os.versions.v1_13.InteractListener(this, blockTriggerManager);
         }
+
         this.permissionBased = getConfig().getBoolean("PermissionsEnabled", false);
-        getServer().getPluginManager().registerEvents(listener, this);
+        if (listener != null) {
+            getServer().getPluginManager().registerEvents(listener, this);
+        }
     }
 
     public void loadConfig() {
-        reloadConfig();
         saveDefaultConfig();
 
         this.messageOnHide = getConfig().getString("messageOnHide");

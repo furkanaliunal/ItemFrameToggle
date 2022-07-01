@@ -22,8 +22,8 @@ public class Version implements Comparable<Version> {
 	@Override
 	public int compareTo(Version version) {
 		int[] parts = version.getParts();
-		int maxLength = Math.max(this.parts.length, parts.length);
-		for (int i = 0; i < maxLength; i++) {
+		int minLength = Math.min(this.parts.length, parts.length);
+		for (int i = 0; i < minLength; i++) {
 			int a = this.parts[i], b = parts[i];
 			if (a > b) return 1;
 			if (a < b) return -1;

@@ -6,10 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import os.Triggers.TriggerManagers.BlockTriggerManager;
 import os.versions.IBaseInteractListener;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public final class ItemFrameToggle extends JavaPlugin {
@@ -29,7 +26,9 @@ public final class ItemFrameToggle extends JavaPlugin {
         getConfig().options().copyDefaults();
         loadConfig();
         blockTriggerManager = new BlockTriggerManager(this);
-        if (currentVersion.compareTo(new Version("1.18")) >= 0){
+        if (currentVersion.compareTo(new Version("1.19")) >= 0){
+            listener = new os.versions.v1_19.InteractListener(this, blockTriggerManager);
+        }else if (currentVersion.compareTo(new Version("1.18")) >= 0){
             listener = new os.versions.v1_18.InteractListener(this, blockTriggerManager);
         }else if (currentVersion.compareTo(new Version("1.17")) >= 0){
             listener = new os.versions.v1_17.InteractListener(this, blockTriggerManager);

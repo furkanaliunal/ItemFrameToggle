@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class Version implements Comparable<Version> {
+
 	private final int[] parts;
 	private final String additional;
 

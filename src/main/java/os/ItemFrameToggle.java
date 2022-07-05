@@ -1,5 +1,6 @@
 package os;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -16,7 +17,8 @@ public final class ItemFrameToggle extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        Version currentVersion = new Version(getServer().getBukkitVersion().split("-")[0]);
+        Version currentVersion = new Version(Bukkit.getBukkitVersion().split("-")[0]);
+
         if (currentVersion.compareTo(new Version("1.13")) < 0){
             getServer().getLogger().warning("ItemFrameToggle doesn't support current version ("+currentVersion+")");
             getServer().getLogger().warning("ItemFrameToggle disabling...");

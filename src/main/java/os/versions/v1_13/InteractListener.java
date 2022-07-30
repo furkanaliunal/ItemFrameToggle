@@ -8,6 +8,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.ShulkerBox;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
@@ -25,8 +26,11 @@ public class InteractListener extends BaseInteractListener {
         super(plugin, trigger);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void hideItemFrameWhileSneaking(PlayerInteractAtEntityEvent e) {
+        if (e.isCancelled()){
+            return;
+        }
         Entity clicked = e.getRightClicked();
         Player p = e.getPlayer();
         if (!(e.getHand().equals(EquipmentSlot.HAND))){
@@ -44,7 +48,7 @@ public class InteractListener extends BaseInteractListener {
             }
         }
         ItemFrame itemFrame = (ItemFrame)clicked;
-        if (!(itemFrame.getItem().getType() == Material.AIR && p.getItemInHand().getType() == Material.AIR)){
+        if (!(itemFrame.getItem().getType() == Material.AIR && p.getInventory().getItemInMainHand().getType() == Material.AIR)){
             itemFrame.setRotation(itemFrame.getRotation().rotateCounterClockwise());
         }
         Boolean isVisible = itemFrame.isVisible();
@@ -54,7 +58,7 @@ public class InteractListener extends BaseInteractListener {
         itemFrame.setVisible(!isVisible);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void openContainerWhenFrameInvisible(PlayerInteractEntityEvent e) {
         Player p = e.getPlayer();
         if (e.isCancelled()){
@@ -117,7 +121,7 @@ public class InteractListener extends BaseInteractListener {
         return null;
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void rotateFrameItemWhileSneaking(EntityDamageByEntityEvent e){
         if (e.isCancelled()){
             return;

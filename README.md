@@ -26,3 +26,7 @@ itemframetoggle.toggle - enabled by default.
 <div style="text-align:center"><img src="src/images/1.png" /></div>
 <div style="text-align:center"><img src="src/images/2.png" /></div>
 <div style="text-align:center"><img src="src/images/3.png" /></div>
+
+Todo:
+- [ ] Add support for other containers
+- [ ] Better permission handling
